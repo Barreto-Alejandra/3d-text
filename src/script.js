@@ -63,23 +63,42 @@ fontLoader.load(
         // other method for center on the geometry
         textGeometry.center()
 
-        const textMaterial = new THREE.MeshMatcapMaterial()
-        //texture for text
-        textMaterial.matcap = matcapTexture
+        //texture for text and donuts
+        const material = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+
+        
+
+       
         //textMaterial.wireframe = true
-        const text = new THREE.Mesh(textGeometry, textMaterial)
+
+        const text = new THREE.Mesh(textGeometry, material)
         scene.add(text)
 
+        const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
+        
+
         //for donnuts
-        for(let i = 0; i < 100; i++) {
-            const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
-            const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
-            const donut = new THREE.Mesh(donutGeometry, donutMaterial)
+        for(let i = 0; i < 130; i++) {
+            const donut = new THREE.Mesh(donutGeometry, material)
 
             //added random donut in their position
-            donut.position.x = (Math.random() -0.5) * 10,
-            donut.position.y = (Math.random() -0.5) * 10,
+            donut.position.x = (Math.random() -0.5) * 10
+            donut.position.y = (Math.random() -0.5) * 10
             donut.position.z = (Math.random() -0.5) * 10
+
+
+            //rotation
+            donut.rotation.x = Math.random() * Math.PI
+            donut.rotation.y = Math.random() * Math.PI
+
+            //scale
+            const scale = Math.random()
+            donut.scale.x = scale
+            donut.scale.y = scale
+            donut.scale.z = scale
+
+
+
 
             scene.add(donut)
         }
