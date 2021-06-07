@@ -25,7 +25,9 @@ const scene = new THREE.Scene()
  */
 const textureLoader = new THREE.TextureLoader()
 //texture for text
-const matcapTexture = textureLoader.load('/textures/matcaps/1.png')
+const matcapTexture = textureLoader.load('/textures/matcaps/2.png')
+
+
 
 /**
  * Fonts
@@ -36,7 +38,7 @@ fontLoader.load(
     (font) =>
     {
         const textGeometry = new THREE.TextGeometry(
-            'hey you',
+            'hello world',
             {
                 font: font,
                 size: 0.5,
@@ -64,9 +66,23 @@ fontLoader.load(
         const textMaterial = new THREE.MeshMatcapMaterial()
         //texture for text
         textMaterial.matcap = matcapTexture
-        // textMaterial.wireframe = true
+        //textMaterial.wireframe = true
         const text = new THREE.Mesh(textGeometry, textMaterial)
         scene.add(text)
+
+        //for donnuts
+        for(let i = 0; i < 100; i++) {
+            const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
+            const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+            const donut = new THREE.Mesh(donutGeometry, donutMaterial)
+
+            //added random donut in their position
+            donut.position.x = (Math.random() -0.5) * 10,
+            donut.position.y = (Math.random() -0.5) * 10,
+            donut.position.z = (Math.random() -0.5) * 10
+
+            scene.add(donut)
+        }
     }
 )
 
